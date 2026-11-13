@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Raio-X do Sobrevivente · Quantas horas a sua casa aguenta sem luz?</title>
+<meta name="description" content="Teste grátis de 1 minuto: se a luz apagar no dia 17, quantas horas a sua casa aguenta? Receba o seu Raio-X gratuito.">
+<meta name="theme-color" content="#1d2116">
+<meta property="og:title" content="Raio-X do Sobrevivente · teste grátis">
+<meta property="og:description" content="Se a luz apagar no dia 17, quantas horas a sua casa aguenta?">
+<meta property="og:image" content="img/apto.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Saira+Stencil+One&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f3ec; --card:#fff; --ink:#1d2116; --muted:#5d6455; --line:#e1ddcf;
+  --olive:#3f4a1d; --olive-2:#566828; --olive-soft:#eef0e2;
+  --orange:#f76707; --orange-ink:#1d1206; --orange-soft:#fff0e3; --orange-line:#f7b98c;
+  --r:12px; --stencil:"Saira Stencil One","Archivo",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:17px;line-height:1.5;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+button,input{font:inherit;color:inherit}
+b,strong{font-weight:750}
+
+.alert{background:var(--ink);color:#fff;text-align:center;font-size:.8rem;font-weight:700;letter-spacing:.04em;padding:8px 12px}
+.alert b{color:#ffb27a}
+.top{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}
+.top-in{max-width:560px;margin:0 auto;height:52px;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;padding:0 10px}
+.back{background:none;border:0;font-size:1.7rem;line-height:1;cursor:pointer;visibility:hidden;padding:4px 8px}
+.back.on{visibility:visible}
+.brand{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.78rem;font-weight:700;letter-spacing:.16em;color:var(--muted)}
+.brand b{color:var(--olive);font-weight:800}
+.mark{width:16px;height:12px;border-radius:2px;background:linear-gradient(90deg,var(--olive) 0 60%,var(--orange) 60%)}
+.pct{font-size:.8rem;font-weight:800;color:var(--olive);text-align:right}
+.bar{height:4px;background:var(--line)}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--olive),var(--orange));transition:width .35s ease}
+
+.app{max-width:480px;margin:0 auto;padding:20px 16px 120px}
+.screen{animation:in .3s ease both}
+@keyframes in{from{opacity:0}to{opacity:1}}
+.badge{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--olive);background:var(--olive-soft);padding:6px 11px;border-radius:999px;margin-bottom:12px}
+.badge.or{color:#8a3500;background:var(--orange-soft)}
+h1,h2{font-weight:850;line-height:1.12;letter-spacing:-.01em;margin:0 0 10px;text-wrap:balance}
+h1{font-size:1.75rem}
+h2{font-size:1.45rem}
+.hl{color:var(--olive)}
+.ho{color:var(--orange)}
+.sub{color:var(--muted);margin:0 0 16px}
+.center{text-align:center}
+.small{font-size:.8rem;color:var(--muted)}
+.small a{color:var(--muted)}
+
+.stepper{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:16px}
+.stepper div{display:flex;align-items:center;gap:7px;padding:8px;border-radius:10px;background:var(--olive-soft);font-size:.74rem;font-weight:700;line-height:1.15;color:var(--olive)}
+.stepper span{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:#fff;font-size:.7rem}
+.stepper .now{background:var(--orange-soft);box-shadow:inset 0 0 0 2px var(--orange)}
+.stepper .now span{background:var(--orange);color:#fff}
+.stepper .ok span{background:var(--olive);color:#fff}
+
+.pick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 12px}
+.pick button{display:flex;flex-direction:column;border:1px solid var(--line);background:#fff;border-radius:var(--r);padding:0;overflow:hidden;cursor:pointer;text-align:left;box-shadow:0 2px 10px rgba(29,33,22,.05)}
+.pick img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.pick b{flex:1;width:100%;display:flex;justify-content:space-between;align-items:center;gap:6px;padding:12px;background:var(--olive);color:#fff;font-size:.98rem;line-height:1.2}
+
+.opts{display:grid;gap:10px;margin-top:16px}
+.opt{display:grid;grid-template-columns:34px 1fr 16px;gap:10px;align-items:center;width:100%;min-height:58px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r);background:#fff;cursor:pointer;text-align:left;font-weight:650;font-size:1.02rem;box-shadow:0 2px 8px rgba(29,33,22,.04)}
+.opt:hover{border-color:var(--olive)}
+.opt .e{font-size:1.4rem;text-align:center}
+.opt .gt{color:var(--muted);font-size:1.2rem}
+
+.yn-e{font-size:3rem;text-align:center;margin:12px 0 8px}
+.yn-q{text-align:center;font-size:1.4rem}
+.yn{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+.yn button{min-height:60px;border-radius:var(--r);font-weight:850;font-size:1.1rem;letter-spacing:.04em;cursor:pointer;border:2px solid var(--olive)}
+.yn .y{background:var(--olive);color:#fff}
+.yn .n{background:#fff;color:var(--olive)}
+
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:58px;padding:14px 18px;border:0;border-radius:var(--r);background:var(--olive);color:#fff;font-weight:850;font-size:1.05rem;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;text-decoration:none;text-align:center;line-height:1.2}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.buy{background:var(--orange);color:var(--orange-ink);box-shadow:0 10px 26px -10px rgba(247,103,7,.7);min-height:64px;font-size:1.08rem}
+.btn.ghost{background:#fff;color:var(--olive);border:2px solid var(--olive);min-height:50px;font-size:.9rem}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:0 2px 10px rgba(29,33,22,.04)}
+.meters{display:grid;gap:13px}
+.meter label{display:flex;justify-content:space-between;font-weight:750;font-size:.95rem;margin-bottom:6px}
+.meter .t{height:9px;border-radius:99px;background:var(--line);overflow:hidden}
+.meter .t i{display:block;height:100%;border-radius:99px;background:var(--olive-2);width:0;transition:width .9s ease}
+.meter .t i.low{background:var(--orange)}
+
+.proc{display:grid;gap:14px;margin:18px 0}
+.proc label{display:flex;justify-content:space-between;font-weight:700;font-size:.92rem;margin-bottom:6px}
+.proc .t{height:7px;border-radius:99px;background:var(--line);overflow:hidden}
+.proc .t i{display:block;height:100%;width:0;background:var(--olive)}
+
+/* modais de captura */
+.modal{position:fixed;inset:0;background:rgba(29,33,22,.55);display:flex;align-items:flex-end;justify-content:center;z-index:40;padding:0}
+.modal[hidden]{display:none}
+.sheet{width:100%;max-width:480px;background:#fff;border-radius:18px 18px 0 0;padding:22px 18px calc(20px + env(safe-area-inset-bottom));animation:up .3s ease both;max-height:92svh;overflow:auto}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.sheet h2{font-size:1.35rem}
+.dots{display:flex;gap:6px;justify-content:center;margin-bottom:14px}
+.dots i{width:28px;height:5px;border-radius:9px;background:var(--line)}
+.dots i.on{background:var(--orange)}
+.field{width:100%;min-height:56px;padding:12px 14px;border:2px solid var(--line);border-radius:var(--r);font-size:1.08rem;font-weight:650;background:#fff;margin-bottom:10px}
+.field:focus{outline:none;border-color:var(--olive)}
+.field.err{border-color:#d9480f}
+.lbl{display:block;font-size:.82rem;font-weight:750;color:var(--muted);margin:0 0 5px}
+.lock{display:flex;gap:8px;align-items:center;justify-content:center;font-size:.78rem;color:var(--muted);margin-top:10px}
+@media (min-width:560px){ .modal{align-items:center;padding:16px} .sheet{border-radius:18px} }
+
+/* resultado */
+.who{font-size:1.25rem;font-weight:800;text-align:center;margin:0}
+.hours{text-align:center;margin:4px 0 6px}
+.hours b{display:block;font-family:var(--stencil);font-size:5.2rem;line-height:.95;color:var(--olive)}
+.hours span{font-weight:800;letter-spacing:.14em;font-size:.85rem;color:var(--muted)}
+.risk{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 0 14px}
+.risk span{font-weight:850;font-size:.86rem;padding:7px 12px;border-radius:999px;background:var(--olive-soft);color:var(--olive)}
+.risk span.alto{background:var(--orange);color:var(--orange-ink)}
+.belief{background:var(--ink);color:#fff;border-radius:var(--r);padding:14px 16px;font-size:1rem;font-weight:600;margin:0 0 14px}
+.belief b{color:#ffb27a}
+.fine{font-size:.76rem;color:var(--muted);margin-top:8px}
+.said{background:var(--orange-soft);border-radius:var(--r);padding:14px 16px;display:grid;gap:10px;margin:14px 0;font-size:.95rem}
+.said p{margin:0}
+.said b{color:var(--olive)}
+
+.lote{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--olive);color:#fff;border-radius:var(--r);padding:10px 14px;margin:26px 0 14px}
+.lote small{display:block;opacity:.85;font-size:.76rem}
+.lote b.cd{font-size:1.15rem;font-weight:900;color:#ffcf9f;white-space:nowrap;font-variant-numeric:tabular-nums}
+.for{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:4px 0 14px}
+.for span{background:#fff;border:1px solid var(--line);font-weight:750;font-size:.84rem;padding:6px 10px;border-radius:999px}
+.mock{display:flex;justify-content:center;align-items:flex-end;gap:0;margin:8px 0 14px;height:190px}
+.book{width:120px;aspect-ratio:3/4;border-radius:3px 7px 7px 3px;background:linear-gradient(160deg,#556427,#232a0e);color:#fff;padding:12px 10px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:8px 12px 24px rgba(0,0,0,.35);transform:rotate(-4deg);position:relative;z-index:1}
+.book b{font-family:var(--stencil);font-size:1.15rem;line-height:1;color:#ffcf9f}
+.book i{font-style:normal;font-size:.62rem;opacity:.85;margin-top:4px}
+.sheet-p{width:118px;aspect-ratio:3/4;background:#fff;border-radius:4px;box-shadow:6px 10px 22px rgba(0,0,0,.2);transform:rotate(5deg) translate(-14px,6px);padding:10px 9px;display:flex;flex-direction:column;gap:5px}
+.sheet-p b{font-size:.62rem;letter-spacing:.06em;color:var(--orange);font-weight:850;line-height:1.15}
+.sheet-p i{display:block;height:4px;border-radius:2px;background:var(--line)}
+.sheet-p i:nth-child(3n){width:70%}
+.price{display:flex;align-items:center;justify-content:center;gap:8px;margin:6px 0 12px}
+.price s{color:var(--muted);font-weight:650}
+.price b{font-size:2.1rem;font-weight:900;color:var(--olive)}
+.price em{font-style:normal;background:var(--orange);color:var(--orange-ink);font-weight:850;font-size:.74rem;padding:4px 8px;border-radius:999px}
+.under{text-align:center;font-size:.8rem;color:var(--muted);margin:8px 0 0}
+.items{display:grid;gap:8px;margin:14px 0}
+.item{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.item .e{font-size:1.4rem;text-align:center;line-height:1.2}
+.item b{display:block;font-size:.98rem}
+.item span{font-size:.88rem;color:var(--muted)}
+.offer{border:2px solid var(--olive);border-radius:var(--r);background:#fff;overflow:hidden;margin:18px 0}
+.offer-h{background:var(--olive);color:#fff;text-align:center;font-weight:800;font-size:.8rem;letter-spacing:.1em;padding:8px}
+.offer-b{padding:16px}
+.offer-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.offer-row .p{text-align:right;white-space:nowrap}
+.offer-row .p s{display:block;color:var(--muted);font-size:.85rem}
+.offer-row .p b{font-size:2.1rem;line-height:1;font-weight:900;color:var(--olive)}
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px;text-align:center;font-size:.72rem;color:var(--muted);font-weight:650}
+.trust span{display:block;font-size:1.1rem}
+.groups{display:grid;gap:8px}
+.groups div{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:10px 14px;font-size:.9rem}
+.groups b{display:block;font-size:.72rem;letter-spacing:.14em;color:var(--orange);margin-bottom:2px}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:var(--r);margin-bottom:8px}
+.faq summary{cursor:pointer;list-style:none;padding:14px 40px 14px 14px;font-weight:750;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--olive);font-weight:900}
+.faq details[open] summary::after{content:"–"}
+.faq p{margin:0;padding:0 14px 14px;color:var(--muted);font-size:.94rem}
+.legal{border-top:4px solid var(--olive);margin-top:26px;padding-top:12px;font-size:.74rem;color:var(--muted);text-align:center}
+.legal a{color:var(--muted)}
+.lote-encerrado [data-so-lote]{display:none!important}
+
+/* plano personalizado (página de obrigado) */
+.plan h1{font-family:var(--stencil);font-weight:400;font-size:2rem;color:var(--olive)}
+.plan table{width:100%;border-collapse:collapse;margin:10px 0 16px;background:#fff;border-radius:var(--r);overflow:hidden}
+.plan td{padding:10px 12px;border-bottom:1px solid var(--line);font-size:.95rem}
+.plan td:last-child{text-align:right;font-weight:850;color:var(--olive)}
+.plan ol{padding-left:22px;margin:8px 0 16px}
+.plan li{margin-bottom:6px}
+/* prova social (toast inferior) */
+.proof{position:fixed;left:12px;bottom:12px;z-index:30;display:grid;grid-template-columns:42px 1fr 20px;gap:10px;align-items:center;width:calc(100% - 24px);max-width:330px;padding:10px 8px 10px 10px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 30px rgba(29,33,22,.18);font-size:.86rem;line-height:1.3;transform:translateY(130%);opacity:0;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .3s;pointer-events:none}
+.proof.on{transform:none;opacity:1;pointer-events:auto}
+.proof .ic{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:1.2rem;background:var(--olive-soft)}
+.proof.buy .ic{background:var(--orange-soft)}
+.proof b{font-weight:800}
+.proof .ho{font-weight:800}
+.proof small{display:block;color:var(--muted);font-size:.74rem;margin-top:2px}
+.proof .x{align-self:start;background:none;border:0;color:var(--muted);font-size:1.05rem;line-height:1;cursor:pointer;padding:2px}
+@media print{ .top,.alert,.noprint,.proof{display:none!important} body{background:#fff} .app{padding:0} }
+@media (prefers-reduced-motion:reduce){ .screen,.sheet{animation:none} .bar i,.meter .t i,.proof{transition:none} }
+</style>
+</head>
+<body>
+
+<div class="alert" id="alert">🔮 <b>Apagão de 17/11</b> · faça o teste grátis antes do dia</div>
+<header class="top">
+  <div class="top-in">
+    <button class="back" id="back" aria-label="Voltar">‹</button>
+    <div class="brand"><span class="mark"></span>RAIO-X DO <b>SOBREVIVENTE</b></div>
+    <span class="pct" id="pct"></span>
+  </div>
+  <div class="bar"><i id="bar"></i></div>
+</header>
+
+<main class="app" id="app"></main>
+
+<!-- modais de captura (aparecem depois do cálculo, antes do resultado) -->
+<div class="modal" id="m1" hidden>
+  <form class="sheet" id="f1" novalidate>
+    <div class="dots"><i class="on"></i><i></i></div>
+    <div class="center"><span class="badge">✅ Seu Raio-X está pronto</span></div>
+    <h2 class="center">Para quem é este Raio-X?</h2>
+    <p class="sub center">Ele sai com o seu nome e fica salvo para você consultar depois.</p>
+    <label class="lbl" for="nm">Seu primeiro nome</label>
+    <input class="field" id="nm" name="nome" maxlength="40" autocomplete="given-name" placeholder="Ex.: Ana" required>
+    <button class="btn" type="submit">Continuar</button>
+  </form>
+</div>
+<div class="modal" id="m2" hidden>
+  <form class="sheet" id="f2" novalidate>
+    <div class="dots"><i class="on"></i><i class="on"></i></div>
+    <h2 class="center"><span id="m2n"></span>, para onde enviamos o seu <span class="ho">Raio-X grátis</span>?</h2>
+    <p class="sub center">Você vê o resultado agora na tela e recebe uma cópia para guardar.</p>
+    <label class="lbl" for="wa">WhatsApp com DDD</label>
+    <input class="field" id="wa" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(11) 99999-9999" required>
+    <label class="lbl" for="em">E-mail <span style="font-weight:500">(opcional)</span></label>
+    <input class="field" id="em" name="email" type="email" inputmode="email" autocomplete="email" placeholder="voce@email.com">
+    <button class="btn buy" type="submit">🔓 Liberar meu Raio-X grátis</button>
+    <p class="lock">🔒 Seus dados ficam protegidos. Ao liberar, você aceita receber o Raio-X e avisos por WhatsApp e e-mail, e pode sair quando quiser. <a href="privacidade.html">Privacidade</a></p>
+  </form>
+</div>
+
+<!-- prova social: toast que entra e sai na parte inferior -->
+<div class="proof" id="proof" role="status" aria-live="polite">
+  <span class="ic" id="proofIc"></span>
+  <div id="proofTx"></div>
+  <button class="x" id="proofX" aria-label="Fechar avisos">×</button>
+</div>
+
+<script>
+/* ================= CONFIGURAÇÃO: só mexa aqui ================= */
+const CONFIG = {
+  checkout: 'COLE_AQUI_O_LINK_DO_CHECKOUT',   // Kiwify/Hotmart
+  prefill: {nome:'name', email:'email', whatsapp:'phone'}, // nomes dos campos de pré-preenchimento do checkout [confirmar na plataforma]
+  leadEndpoint: '',                            // URL do Apps Script / Make / Zapier que recebe o lead (POST JSON)
+  fimLote: '2026-11-17T23:59:59-03:00',
+  precoLote: '19,90',
+  precoCheio: '27',
+  produto: 'Guia Bunker Urbano 72H'
+};
+/* ============================================================== */
+
+const $ = s => document.querySelector(s);
+const app = $('#app');
+const A = {};
+const hist = [];
+let i = 0;
+
+const STEPS = [
+  {id:'moradia', type:'intro'},
+  {id:'crenca', type:'opts', kicker:'Antes de tudo', q:'Você acredita que o apagão do dia 17 pode acontecer?', opts:[
+    ['acredito','🔮','Acredito. Os sinais estão aí'],['pode','🤔','Pode ser, não duvido'],['exagero','🙄','Acho exagero'],['naosabia','🤷','Nem sabia dessa previsão']]},
+  {id:'pessoas', type:'opts', kicker:'Sua casa', q:'Quantas pessoas moram aí, contando com você?', opts:[
+    ['1','🧍','Só eu'],['2','👫','2 pessoas'],['4','👨‍👩‍👧','3 ou 4 pessoas'],['5','👨‍👩‍👧‍👦','5 ou mais']]},
+  {id:'lanterna', type:'yn', e:'🔦', q:'Se a luz apagar agora, você acha uma lanterna com pilha sem usar o celular?'},
+  {id:'agua', type:'opts', kicker:'Água', q:'Quanta água para beber você tem guardada, fora da torneira?', opts:[
+    ['0','🚫','Nenhuma'],['5','🥤','Uns 5 litros'],['15','🪣','De 10 a 20 litros'],['25','🛢️','Mais de 20 litros']]},
+  {id:'comida', type:'yn', e:'🥫', q:'Tem comida para 3 dias que não precisa de geladeira nem de tomada?'},
+  {id:'powerbank', type:'yn', e:'🔋', q:'Tem um power bank carregado agora, neste minuto?'},
+  {id:'plano', type:'yn', e:'👨‍👩‍👧', q:'A sua família sabe o que fazer se a luz e o celular caírem juntos?'},
+  {id:'medo', type:'opts', kicker:'Última pergunta', q:'Se a luz não voltar, o que mais te preocupa?', opts:[
+    ['criancas','🧒','As crianças no escuro'],['comida','🥩','Perder a comida da geladeira'],['celular','📵','Ficar sem celular e sem notícia'],['seguranca','🔓','A segurança da casa']]},
+  {id:'proc', type:'proc'},
+  {id:'resultado', type:'result'}
+];
+
+/* ---------- cálculo real a partir das respostas ---------- */
+function calc(){
+  const P = +A.pessoas || 2, L = +A.agua || 0;
+  const H = {
+    agua: Math.min(96, Math.round(L / (2 * P) * 24) + (A.moradia === 'casa' ? 24 : 6)),
+    comida: A.comida === 'nao' ? 24 : 72,
+    luz: A.lanterna === 'sim' ? 72 : (A.powerbank === 'sim' ? 16 : 8),
+    energia: A.powerbank === 'sim' ? 72 : 12
+  };
+  const nomes = {agua:'água', comida:'comida', luz:'luz', energia:'bateria do celular'};
+  let g = 'agua';
+  for (const k in H) if (H[k] < H[g]) g = k;
+  const pct = {
+    agua: Math.min(100, Math.round(H.agua / 72 * 100)),
+    comida: A.comida === 'nao' ? 33 : 100,
+    luz: A.lanterna === 'sim' ? 100 : 20,
+    energia: A.powerbank === 'sim' ? 100 : 25,
+    plano: A.plano === 'sim' ? 100 : 15
+  };
+  const horas = H[g];
+  const risco = horas < 24 ? 'ALTO' : horas < 72 ? 'MÉDIO' : 'BAIXO';
+  return {H, horas, g, gNome:nomes[g], pct, risco, P};
+}
+const fmtH = h => h >= 72 ? '72+' : String(h);
+const AREAS = {agua:'Água', comida:'Comida', luz:'Luz', energia:'Energia e celular', plano:'Plano da família'};
+const PROJ = {
+  agua:['Reserva de 50 litros com galão e torneira','Filtro de balde por gravidade','Desinfecção solar da água'],
+  luz:['Lampião de galão','Luz de corredor com fita LED USB','Mapa da casa no escuro'],
+  energia:['Mini usina solar 12V de varanda','Internet que não cai'],
+  comida:['Freezer de emergência (isopor turbinado)','Geladeira de barro','Caixa de cozimento térmico'],
+  plano:['Painel do Bunker (plano da família)','Pasta à prova d\'água','Mochila de saída rápida','Banheiro de emergência']
+};
+function ordem(c){ return Object.keys(c.pct).sort((a, b) => c.pct[a] - c.pct[b]); }
+
+/* ---------- render ---------- */
+function stepper(n){
+  const t = ['Teste rápido','Seu Raio-X grátis','Seu guia personalizado'];
+  return '<div class="stepper">' + t.map((x, k) => `<div class="${k < n ? 'ok' : k === n ? 'now' : ''}"><span>${k < n ? '✓' : k + 1}</span>${x}</div>`).join('') + '</div>';
+}
+function render(){
+  const s = STEPS[i];
+  const p = Math.round(i / (STEPS.length - 1) * 100);
+  $('#bar').style.width = p + '%';
+  $('#pct').textContent = i ? p + '%' : '';
+  $('#back').classList.toggle('on', hist.length > 0 && s.type !== 'proc' && s.type !== 'result');
+  $('#alert').hidden = i !== 0;
+  window.scrollTo(0, 0);
+  const R = {intro, opts, yn, proc, result};
+  app.innerHTML = '<div class="screen">' + R[s.type](s) + '</div>';
+  if (s.type === 'proc') runProc();
+  if (s.type === 'result') bindResult();
+}
+function next(){ hist.push(i); i = Math.min(i + 1, STEPS.length - 1); render(); }
+
+function intro(){
+  return stepper(0) + `
+  <span class="badge or">Teste grátis · 1 minuto</span>
+  <h1>Se a luz apagar no dia 17, <span class="ho">quantas horas</span> a sua casa aguenta?</h1>
+  <p class="sub">Responda 8 perguntas rápidas e receba <b>de graça</b> o Raio-X da sua casa: quanto tempo ela aguenta e o que vai faltar primeiro.</p>
+  <div class="pick">
+    <button data-v="apto"><img src="img/apto.webp" alt="Prédio às escuras" width="640" height="480"><b>Moro em apartamento <span>›</span></b></button>
+    <button data-v="casa"><img src="img/casa.webp" alt="Casa com portão durante apagão" width="640" height="480"><b>Moro em casa <span>›</span></b></button>
+  </div>
+  <p class="small center">Ao continuar, você concorda com os <a href="termos.html">Termos de Uso</a> e a <a href="privacidade.html">Política de Privacidade</a>.</p>`;
+}
+function opts(s){
+  return `<span class="badge">${s.kicker}</span><h2>${s.q}</h2><div class="opts">` +
+    s.opts.map(o => `<button class="opt" data-v="${o[0]}"><span class="e">${o[1]}</span><span>${o[2]}</span><span class="gt">›</span></button>`).join('') + '</div>';
+}
+function yn(s){
+  return `<div class="yn-e">${s.e}</div><h2 class="yn-q">${s.q}</h2><div class="yn"><button class="y" data-v="sim">SIM</button><button class="n" data-v="nao">NÃO</button></div>`;
+}
+function proc(){
+  return `<div class="center"><span class="badge">Quase pronto</span><h2>Montando o seu Raio-X <span class="hl">grátis</span></h2></div>
+  <div class="proc">${['Analisando suas respostas','Calculando quantas horas a sua casa aguenta','Separando o que falta primeiro'].map((t, k) =>
+    `<div><label><span>${t}</span><span id="pp${k}">0%</span></label><div class="t"><i id="pb${k}"></i></div></div>`).join('')}</div>`;
+}
+function runProc(){
+  let k = 0; const v = [0, 0, 0];
+  const t = setInterval(() => {
+    v[k] = Math.min(100, v[k] + 5);
+    $('#pb' + k).style.width = v[k] + '%'; $('#pp' + k).textContent = v[k] + '%';
+    if (v[k] >= 100 && ++k > 2) { clearInterval(t); setTimeout(() => openModal('#m1'), 300); }
+  }, 40);
+}
+
+/* ---------- modais de captura ---------- */
+function openModal(id){ document.querySelectorAll('.modal').forEach(m => m.hidden = true); $(id).hidden = false; setTimeout(() => $(id).querySelector('input').focus(), 250); }
+$('#f1').addEventListener('submit', e => {
+  e.preventDefault();
+  const n = $('#nm').value.trim();
+  if (n.length < 2) { $('#nm').classList.add('err'); return; }
+  A.nome = n.split(' ')[0].replace(/^./, c => c.toUpperCase());
+  $('#m2n').textContent = A.nome;
+  openModal('#m2');
+});
+$('#wa').addEventListener('input', e => {
+  const d = e.target.value.replace(/\D/g, '').slice(0, 11);
+  e.target.value = d.length > 6 ? `(${d.slice(0,2)}) ${d.slice(2, d.length - 4)}-${d.slice(-4)}` : d.length > 2 ? `(${d.slice(0,2)}) ${d.slice(2)}` : d;
+  e.target.classList.remove('err');
+});
+$('#f2').addEventListener('submit', e => {
+  e.preventDefault();
+  const d = $('#wa').value.replace(/\D/g, ''), em = $('#em').value.trim();
+  let ok = true;
+  if (d.length < 10) { $('#wa').classList.add('err'); ok = false; }
+  if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { $('#em').classList.add('err'); ok = false; }
+  if (!ok) return;
+  A.whatsapp = d; A.email = em;
+  sendLead();
+  $('#m2').hidden = true;
+  next();
+});
+function sendLead(){
+  const c = calc(), q = new URLSearchParams(location.search);
+  const payload = {data:new Date().toISOString(), nome:A.nome, whatsapp:A.whatsapp, email:A.email, moradia:A.moradia, pessoas:A.pessoas,
+    crenca:A.crenca, medo:A.medo, horas:c.horas, gargalo:c.g, risco:c.risco, respostas:A,
+    utm_source:q.get('utm_source') || '', utm_campaign:q.get('utm_campaign') || '', utm_content:q.get('utm_content') || ''};
+  try { localStorage.setItem('raiox-sobrevivente', JSON.stringify(A)); } catch (e) {}
+  if (CONFIG.leadEndpoint) fetch(CONFIG.leadEndpoint, {method:'POST', mode:'no-cors', keepalive:true, headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload)}).catch(() => {});
+  if (window.fbq) window.fbq('track', 'Lead');
+}
+
+/* ---------- resultado grátis + oferta ---------- */
+function crencaTxt(c){
+  const h = `<b>${fmtH(c.horas)} horas</b> até faltar <b>${c.gNome}</b>`;
+  return {
+    acredito:`Você sente que o dia 17 pode acontecer. Se acontecer, a sua casa tem ${h}.`,
+    pode:`Você não duvida do dia 17. Se a luz apagar, a sua casa tem ${h}.`,
+    exagero:`Mesmo que o dia 17 passe em branco, a próxima queda de luz não avisa. E a sua casa tem ${h}.`,
+    naosabia:`Agora você sabe da previsão. Se a luz apagar, a sua casa tem ${h}.`
+  }[A.crenca] || `Se a luz apagar, a sua casa tem ${h}.`;
+}
+function said(c){
+  const o = [];
+  if (c.pct.agua < 100) o.push(`Você disse que tem <b>${A.agua === '0' ? 'nenhuma água' : 'pouca água'} guardada</b>. A sua casa precisa de <b>${c.P * 6} litros</b> só para beber em 72 horas, e o seu guia começa por aí.`);
+  if (A.lanterna === 'nao') o.push('Você disse que <b>não acharia uma lanterna sem o celular</b>. O guia mostra como iluminar a sala inteira com uma lanterna de cabeça e um galão d\'água.');
+  if (A.powerbank === 'nao') o.push('Você disse que <b>não tem power bank carregado</b>. O guia ensina a montar uma mini usina solar de varanda para manter celular e luz.');
+  if (A.comida === 'nao') o.push('Você disse que <b>não tem comida para 3 dias sem geladeira</b>. O guia traz o freezer de emergência e a lista do que comprar.');
+  if (A.plano === 'nao') o.push('Você disse que a família <b>não sabe o que fazer</b> se tudo cair junto. O guia traz o plano pronto para colar na geladeira.');
+  return o.slice(0, 3);
+}
+const MEDO = {criancas:'Para nenhuma criança da sua casa ficar no escuro', comida:'Para não perder a comida da geladeira', celular:'Para a sua família não ficar sem celular e sem notícia', seguranca:'Para a sua casa continuar segura no escuro'};
+function result(){
+  const c = calc(), ord = ordem(c);
+  const preco = `<span data-preco>${CONFIG.precoLote}</span>`;
+  const buy = t => `<a class="btn buy" data-checkout href="#">${t}</a>`;
+  const meters = '<div class="card meters">' + ord.map(k => `<div class="meter"><label><span>${AREAS[k]}</span><span>${c.pct[k]}%</span></label><div class="t"><i class="${c.pct[k] < 40 ? 'low' : ''}" data-w="${c.pct[k]}"></i></div></div>`).join('') + '</div>';
+  const ss = said(c);
+  return stepper(1) + `
+  <div class="center"><span class="badge">Seu Raio-X grátis</span></div>
+  <p class="who">${esc(A.nome || '')}, a sua casa aguenta</p>
+  <div class="hours"><b>${fmtH(c.horas)}</b><span>HORAS SEM LUZ</span></div>
+  <div class="risk"><span class="${c.risco === 'ALTO' ? 'alto' : ''}">Risco ${c.risco}</span><span>Acaba primeiro: ${c.gNome}</span></div>
+  <p class="belief">${crencaTxt(c)}</p>
+  ${meters}
+  <p class="fine">Cálculo feito com as suas respostas: 2 litros de água por pessoa por dia, 3 dias.</p>
+
+  <div class="lote" data-so-lote><div>⏳ <b>Antes do dia 17</b><small>Guia personalizado por R$ ${CONFIG.precoLote} até 17/11, 23h59</small></div><b class="cd" data-countdown>--</b></div>
+  ${stepper(2)}
+  <h2 class="center">Seu <span class="hl">Guia Bunker Urbano</span> personalizado está pronto para liberar</h2>
+  <div class="for"><span>${A.moradia === 'casa' ? '🏠 Casa' : '🏢 Apartamento'}</span><span>👨‍👩‍👧 ${c.P === 5 ? '5+' : c.P} ${c.P === 1 ? 'pessoa' : 'pessoas'}</span><span>⚠️ Começa por: ${c.gNome}</span></div>
+  <div class="mock" aria-hidden="true"><div class="book"><b>BUNKER<br>URBANO<br>72H</b><i>15 projetos com as próprias mãos</i></div><div class="sheet-p"><b>PLANO DE ${esc((A.nome || '').toUpperCase())}</b><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+  <div class="price"><s data-so-lote>R$ ${CONFIG.precoCheio}</s><b>R$ ${preco}</b><em data-so-lote>ATÉ O DIA 17</em></div>
+  ${buy('🔓 Liberar meu guia personalizado')}
+  <p class="under">Pix ou cartão · acesso imediato · 7 dias de garantia</p>
+  <div class="items">
+    <div class="item"><span class="e">🗂️</span><div><b>Seu Plano Bunker personalizado</b><span>Quanto de água, comida e luz a <b>sua</b> casa precisa, e a ordem certa dos projetos, começando pela ${c.gNome}.</span></div></div>
+    <div class="item"><span class="e">🛠️</span><div><b>15 projetos com as próprias mãos</b><span>Água, luz, energia, comida e casa. Lista de material e passo a passo, nível iniciante.</span></div></div>
+    <div class="item"><span class="e">⏱️</span><div><b>O que fazer hora a hora</b><span>Nos primeiros 5 minutos, na primeira hora, em 24 e em 72 horas.</span></div></div>
+    <div class="item"><span class="e">🛒</span><div><b>Lista de compras em 3 níveis + checklists</b><span>Comece pelo que já tem em casa e gaste só no que falta.</span></div></div>
+  </div>
+  ${ss.length ? `<div class="said">${ss.map(t => `<p>${t}</p>`).join('')}</div>` : ''}
+  <div class="offer">
+    <div class="offer-h">🛠️ GUIA BUNKER URBANO 72H</div>
+    <div class="offer-b">
+      <p style="margin:0 0 10px;font-weight:750">${MEDO[A.medo] || 'Para a sua casa atravessar a próxima noite sem luz'}.</p>
+      <div class="offer-row">
+        <div><b>Guia + Plano personalizado</b><br><span class="small">15 projetos · hora a hora · listas e checklists</span></div>
+        <div class="p"><s data-so-lote>R$ ${CONFIG.precoCheio}</s><b><small style="font-size:.9rem">R$</small> ${preco}</b></div>
+      </div>
+      <div style="margin-top:14px">${buy('Quero minha casa pronta')}</div>
+      <div class="trust"><div><span>⚡</span>Acesso imediato</div><div><span>🔒</span>Pagamento seguro</div><div><span>✅</span>7 dias de garantia</div></div>
+    </div>
+  </div>
+  <h2>Os 15 projetos, na ordem da sua casa</h2>
+  <div class="groups">${ord.map(k => `<div><b>${AREAS[k].toUpperCase()}</b>${PROJ[k].join(' · ')}</div>`).join('')}</div>
+  <div class="item" style="margin-top:14px"><span class="e">🛡️</span><div><b>Garantia de 7 dias.</b><span> Não gostou? Peça o reembolso pela plataforma e recebe 100% de volta.</span></div></div>
+  <h2 style="margin-top:22px">Dúvidas</h2>
+  <div class="faq">
+    <details><summary>Como recebo?</summary><p>Logo depois do pagamento, o acesso chega no seu e-mail. O seu Plano personalizado abre na hora, com os números da sua casa.</p></details>
+    <details><summary>Preciso saber mexer com ferramenta?</summary><p>Não. Os projetos são de nível iniciante, com lista de material e passo a passo. Nenhum mexe na fiação da casa.</p></details>
+    <details><summary>Moro de aluguel ou em apartamento. Dá para fazer?</summary><p>Dá. Nenhum projeto exige furar parede ou mexer na instalação.</p></details>
+    <details><summary>E se o dia 17 passar e nada acontecer?</summary><p>A casa continua pronta para qualquer queda de luz, temporal ou falta d'água. E você tem 7 dias de garantia.</p></details>
+  </div>
+  <div style="margin-top:16px">${buy('🔓 Liberar meu guia personalizado')}</div>
+  <div class="legal">[NOME OU RAZÃO SOCIAL] · [CPF/CNPJ] · [E-MAIL DE SUPORTE]<br><a href="termos.html">Termos de Uso</a> · <a href="privacidade.html">Privacidade</a> · Este site não faz parte do Facebook nem da Meta.</div>`;
+}
+function bindResult(){
+  requestAnimationFrame(() => document.querySelectorAll('[data-w]').forEach(el => el.style.width = el.dataset.w + '%'));
+  const q = new URLSearchParams(location.search);
+  q.set('src', 'quiz');
+  if (A.nome) q.set(CONFIG.prefill.nome, A.nome);
+  if (A.email) q.set(CONFIG.prefill.email, A.email);
+  if (A.whatsapp) q.set(CONFIG.prefill.whatsapp, A.whatsapp);
+  document.querySelectorAll('[data-checkout]').forEach(a => {
+    if (/^https?:\/\//.test(CONFIG.checkout)) a.href = CONFIG.checkout + (CONFIG.checkout.includes('?') ? '&' : '?') + q.toString();
+    else a.addEventListener('click', e => e.preventDefault());
+    a.addEventListener('click', () => { if (window.fbq) window.fbq('track', 'InitiateCheckout'); });
+  });
+  lote();
+}
+
+let loteT;
+function lote(){
+  clearInterval(loteT);
+  const fim = new Date(CONFIG.fimLote).getTime(), pad = n => String(n).padStart(2, '0');
+  const tick = () => {
+    const r = fim - Date.now();
+    if (r <= 0) { document.documentElement.classList.add('lote-encerrado'); document.querySelectorAll('[data-preco]').forEach(p => p.textContent = CONFIG.precoCheio); clearInterval(loteT); return; }
+    const s = Math.floor(r / 1000), d = Math.floor(s / 86400);
+    const txt = (d ? d + 'd ' : '') + pad(Math.floor(s % 86400 / 3600)) + ':' + pad(Math.floor(s % 3600 / 60)) + ':' + pad(s % 60);
+    document.querySelectorAll('[data-countdown]').forEach(c => c.textContent = txt);
+  };
+  tick(); loteT = setInterval(tick, 1000);
+}
+
+/* ---------- plano personalizado (página de obrigado: quiz.html#obrigado) ---------- */
+function plano(){
+  const c = calc(), P = c.P, ord = ordem(c);
+  let n = 0;
+  return `<div class="screen plan">
+    <span class="badge noprint">Compra confirmada</span>
+    <h1>PLANO BUNKER DE ${esc((A.nome || 'SUA CASA').toUpperCase())}</h1>
+    <p class="sub">${A.moradia === 'casa' ? 'Casa' : 'Apartamento'} · ${P === 5 ? '5 ou mais' : P} ${P === 1 ? 'pessoa' : 'pessoas'} · hoje aguenta ${fmtH(c.horas)} horas · começa por: <b>${c.gNome}</b></p>
+    <h2>Os números da sua casa (72 horas)</h2>
+    <table>
+      <tr><td>Água para beber (2 L × pessoa × 3 dias)</td><td>${P * 6} L</td></tr>
+      <tr><td>Água para cozinhar e higiene</td><td>+ ${P * 6} L</td></tr>
+      <tr><td>Refeições sem geladeira (9 por pessoa)</td><td>${P * 9}</td></tr>
+      <tr><td>Lanches (2 por pessoa por dia)</td><td>${P * 6}</td></tr>
+      <tr><td>Lanternas (1 por pessoa + 1 extra)</td><td>${P + 1}</td></tr>
+    </table>
+    <h2>A ordem dos seus projetos</h2>
+    <ol>${ord.map(k => PROJ[k].map(p => `<li><b>${AREAS[k]}:</b> ${p}</li>`).join('')).join('')}</ol>
+    <p class="small">O passo a passo de cada projeto está no Guia Bunker Urbano 72H, que chegou no seu e-mail.</p>
+    <button class="btn noprint" onclick="window.print()">Imprimir ou salvar em PDF</button>
+  </div>`;
+}
+
+/* ---------- prova social: a cada 15 s um aviso; 1 em cada 4 é de compra ---------- */
+const PROOF = {
+  intervalo: 15000, visivel: 4500, compraACada: 4,
+  nomes: ['Ana','Carlos','Juliana','Marcos','Fernanda','Rafael','Patrícia','Lucas','Camila','Roberto','Aline','Diego','Renata','Thiago','Sandra','Bruno','Vanessa','Gustavo','Larissa','Paulo'],
+  cidades: ['Goiânia/GO','São Paulo/SP','Belo Horizonte/MG','Curitiba/PR','Salvador/BA','Recife/PE','Fortaleza/CE','Campinas/SP','Porto Alegre/RS','Brasília/DF','Uberlândia/MG','Rio de Janeiro/RJ','Anápolis/GO','Londrina/PR','Natal/RN']
+};
+function proof(){
+  const el = $('#proof');
+  let n = 0, t;
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  const show = () => {
+    if (document.hidden || [...document.querySelectorAll('.modal')].some(m => !m.hidden)) return;
+    n++;
+    const buy = n % PROOF.compraACada === 0;
+    el.classList.toggle('buy', buy);
+    $('#proofIc').textContent = buy ? '🛒' : '✅';
+    $('#proofTx').innerHTML = buy
+      ? `<b>${pick(PROOF.nomes)}</b>, de ${pick(PROOF.cidades)}, comprou o <span class="ho">${CONFIG.produto}</span><small>agora mesmo</small>`
+      : `<b>${3 + Math.floor(Math.random() * 12)} pessoas</b> concluíram o Raio-X agora<small>nos últimos minutos</small>`;
+    el.classList.add('on');
+    setTimeout(() => el.classList.remove('on'), PROOF.visivel);
+  };
+  $('#proofX').addEventListener('click', () => { clearInterval(t); el.classList.remove('on'); });
+  setTimeout(() => { show(); t = setInterval(show, PROOF.intervalo); }, 6000);
+}
+
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+app.addEventListener('click', e => {
+  const v = e.target.closest('[data-v]');
+  if (v) { A[STEPS[i].id] = v.dataset.v; next(); }
+});
+$('#back').addEventListener('click', () => { if (hist.length) { i = hist.pop(); render(); } });
+
+if (location.hash === '#obrigado') {
+  try { Object.assign(A, JSON.parse(localStorage.getItem('raiox-sobrevivente') || '{}')); } catch (e) {}
+  $('#alert').hidden = true; $('#bar').style.width = '100%';
+  app.innerHTML = plano();
+} else {
+  render();
+  proof();
+}
+</script>
+</body>
+</html>
