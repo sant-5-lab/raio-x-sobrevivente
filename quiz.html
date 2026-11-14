@@ -132,6 +132,9 @@ h2{font-size:1.45rem}
 .lote b.cd{font-size:1.15rem;font-weight:900;color:#ffcf9f;white-space:nowrap;font-variant-numeric:tabular-nums}
 .for{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:4px 0 14px}
 .for span{background:#fff;border:1px solid var(--line);font-weight:750;font-size:.84rem;padding:6px 10px;border-radius:999px}
+.pj{margin:0 0 14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.pj img{display:block;width:100%;height:auto}
+.pj figcaption{padding:10px 12px;font-size:.9rem}
 .mock{display:flex;justify-content:center;align-items:flex-end;gap:0;margin:8px 0 14px;height:190px}
 .book{width:120px;aspect-ratio:3/4;border-radius:3px 7px 7px 3px;background:linear-gradient(160deg,#556427,#232a0e);color:#fff;padding:12px 10px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:8px 12px 24px rgba(0,0,0,.35);transform:rotate(-4deg);position:relative;z-index:1}
 .book b{font-family:var(--stencil);font-size:1.15rem;line-height:1;color:#ffcf9f}
@@ -194,7 +197,7 @@ h2{font-size:1.45rem}
 </head>
 <body>
 
-<div class="alert" id="alert">🔮 <b>Apagão de 17/11</b> · faça o teste grátis antes do dia</div>
+<div class="alert" id="alert">🔦 <b>Se a luz apagar dia 17</b> · faça o teste grátis antes</div>
 <header class="top">
   <div class="top-in">
     <button class="back" id="back" aria-label="Voltar">‹</button>
@@ -250,6 +253,8 @@ const CONFIG = {
   precoCheio: '27',
   produto: 'Guia Bunker Urbano 72H'
 };
+/* depois do dia 17 a copy troca sozinha: sai a data e sai a pergunta da crença */
+const POS17 = Date.now() >= new Date('2026-11-18T00:00:00-03:00').getTime();
 /* ============================================================== */
 
 const $ = s => document.querySelector(s);
@@ -261,7 +266,7 @@ let i = 0;
 const STEPS = [
   {id:'moradia', type:'intro'},
   {id:'crenca', type:'opts', kicker:'Antes de tudo', q:'Você acredita que o apagão do dia 17 pode acontecer?', opts:[
-    ['acredito','🔮','Acredito. Os sinais estão aí'],['pode','🤔','Pode ser, não duvido'],['exagero','🙄','Acho exagero'],['naosabia','🤷','Nem sabia dessa previsão']]},
+    ['acredito','🔮','Acredito que pode acontecer'],['pode','🤔','Pode ser, não duvido'],['exagero','🙄','Acho exagero'],['naosabia','🤷','Nem sabia disso']]},
   {id:'pessoas', type:'opts', kicker:'Sua casa', q:'Quantas pessoas moram aí, contando com você?', opts:[
     ['1','🧍','Só eu'],['2','👫','2 pessoas'],['4','👨‍👩‍👧','3 ou 4 pessoas'],['5','👨‍👩‍👧‍👦','5 ou mais']]},
   {id:'lanterna', type:'yn', e:'🔦', q:'Se a luz apagar agora, você acha uma lanterna com pilha sem usar o celular?'},
@@ -275,6 +280,11 @@ const STEPS = [
   {id:'proc', type:'proc'},
   {id:'resultado', type:'result'}
 ];
+if (POS17) {
+  STEPS.splice(STEPS.findIndex(s => s.id === 'crenca'), 1);
+  $('#alert').innerHTML = '🔦 <b>Teste grátis</b> · quantas horas a sua casa aguenta sem luz?';
+}
+const NPERG = STEPS.filter(s => s.type === 'opts' || s.type === 'yn').length;
 
 /* ---------- cálculo real a partir das respostas ---------- */
 function calc(){
@@ -308,6 +318,8 @@ const PROJ = {
   comida:['Freezer de emergência (isopor turbinado)','Geladeira de barro','Caixa de cozimento térmico'],
   plano:['Painel do Bunker (plano da família)','Pasta à prova d\'água','Mochila de saída rápida','Banheiro de emergência']
 };
+/* foto real do 1º projeto de cada área (arquivo em img/, nº do projeto no guia) */
+const FOTO = {agua:['proj-agua',1], luz:['proj-luz',4], energia:['proj-energia',7], comida:['proj-comida',9]};
 function ordem(c){ return Object.keys(c.pct).sort((a, b) => c.pct[a] - c.pct[b]); }
 
 /* ---------- render ---------- */
@@ -333,8 +345,8 @@ function next(){ hist.push(i); i = Math.min(i + 1, STEPS.length - 1); render(); 
 function intro(){
   return stepper(0) + `
   <span class="badge or">Teste grátis · 1 minuto</span>
-  <h1>Se a luz apagar no dia 17, <span class="ho">quantas horas</span> a sua casa aguenta?</h1>
-  <p class="sub">Responda 8 perguntas rápidas e receba <b>de graça</b> o Raio-X da sua casa: quanto tempo ela aguenta e o que vai faltar primeiro.</p>
+  <h1>${POS17 ? 'Se a luz acabar hoje' : 'Se a luz apagar no dia 17'}, <span class="ho">quantas horas</span> a sua casa aguenta?</h1>
+  <p class="sub">Responda ${NPERG} perguntas rápidas e receba <b>de graça</b> o Raio-X da sua casa: quanto tempo ela aguenta e o que vai faltar primeiro.</p>
   <div class="pick">
     <button data-v="apto"><img src="img/apto.webp" alt="Prédio às escuras" width="640" height="480"><b>Moro em apartamento <span>›</span></b></button>
     <button data-v="casa"><img src="img/casa.webp" alt="Casa com portão durante apagão" width="640" height="480"><b>Moro em casa <span>›</span></b></button>
@@ -389,13 +401,17 @@ $('#f2').addEventListener('submit', e => {
   $('#m2').hidden = true;
   next();
 });
+function post(p){
+  if (CONFIG.leadEndpoint) fetch(CONFIG.leadEndpoint, {method:'POST', mode:'no-cors', keepalive:true, headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(p)}).catch(() => {});
+}
 function sendLead(){
   const c = calc(), q = new URLSearchParams(location.search);
-  const payload = {data:new Date().toISOString(), nome:A.nome, whatsapp:A.whatsapp, email:A.email, moradia:A.moradia, pessoas:A.pessoas,
+  A.id = A.id || Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+  const payload = {evento:'lead', id:A.id, gargaloNome:c.gNome, data:new Date().toISOString(), nome:A.nome, whatsapp:A.whatsapp, email:A.email, moradia:A.moradia, pessoas:A.pessoas,
     crenca:A.crenca, medo:A.medo, horas:c.horas, gargalo:c.g, risco:c.risco, respostas:A,
     utm_source:q.get('utm_source') || '', utm_campaign:q.get('utm_campaign') || '', utm_content:q.get('utm_content') || ''};
   try { localStorage.setItem('raiox-sobrevivente', JSON.stringify(A)); } catch (e) {}
-  if (CONFIG.leadEndpoint) fetch(CONFIG.leadEndpoint, {method:'POST', mode:'no-cors', keepalive:true, headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload)}).catch(() => {});
+  post(payload);
   if (window.fbq) window.fbq('track', 'Lead');
 }
 
@@ -406,7 +422,7 @@ function crencaTxt(c){
     acredito:`Você sente que o dia 17 pode acontecer. Se acontecer, a sua casa tem ${h}.`,
     pode:`Você não duvida do dia 17. Se a luz apagar, a sua casa tem ${h}.`,
     exagero:`Mesmo que o dia 17 passe em branco, a próxima queda de luz não avisa. E a sua casa tem ${h}.`,
-    naosabia:`Agora você sabe da previsão. Se a luz apagar, a sua casa tem ${h}.`
+    naosabia:`Se a luz apagar, a sua casa tem ${h}.`
   }[A.crenca] || `Se a luz apagar, a sua casa tem ${h}.`;
 }
 function said(c){
@@ -425,6 +441,10 @@ function result(){
   const buy = t => `<a class="btn buy" data-checkout href="#">${t}</a>`;
   const meters = '<div class="card meters">' + ord.map(k => `<div class="meter"><label><span>${AREAS[k]}</span><span>${c.pct[k]}%</span></label><div class="t"><i class="${c.pct[k] < 40 ? 'low' : ''}" data-w="${c.pct[k]}"></i></div></div>`).join('') + '</div>';
   const ss = said(c);
+  const titulo = c.horas >= 72
+    ? 'A sua casa passa das 72 horas. O seu <span class="hl">Guia Bunker Urbano</span> cobre o que ainda falta'
+    : `O que derruba a sua casa em ${c.horas} horas é a ${c.gNome}. O seu <span class="hl">Guia Bunker Urbano</span> começa por aí`;
+  const foto = FOTO[c.g];
   return stepper(1) + `
   <div class="center"><span class="badge">Seu Raio-X grátis</span></div>
   <p class="who">${esc(A.nome || '')}, a sua casa aguenta</p>
@@ -436,11 +456,13 @@ function result(){
 
   <div class="lote" data-so-lote><div>⏳ <b>Antes do dia 17</b><small>Guia personalizado por R$ ${CONFIG.precoLote} até 17/11, 23h59</small></div><b class="cd" data-countdown>--</b></div>
   ${stepper(2)}
-  <h2 class="center">Seu <span class="hl">Guia Bunker Urbano</span> personalizado está pronto para liberar</h2>
+  <h2 class="center">${titulo}</h2>
   <div class="for"><span>${A.moradia === 'casa' ? '🏠 Casa' : '🏢 Apartamento'}</span><span>👨‍👩‍👧 ${c.P === 5 ? '5+' : c.P} ${c.P === 1 ? 'pessoa' : 'pessoas'}</span><span>⚠️ Começa por: ${c.gNome}</span></div>
   <div class="mock" aria-hidden="true"><div class="book"><b>BUNKER<br>URBANO<br>72H</b><i>15 projetos com as próprias mãos</i></div><div class="sheet-p"><b>PLANO DE ${esc((A.nome || '').toUpperCase())}</b><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+  <figure class="pj"><img src="img/${foto[0]}.webp" alt="${PROJ[c.g][0]}" width="720" height="540"><figcaption><b>Projeto ${foto[1]} do guia:</b> ${PROJ[c.g][0]}</figcaption></figure>
   <div class="price"><s data-so-lote>R$ ${CONFIG.precoCheio}</s><b>R$ ${preco}</b><em data-so-lote>ATÉ O DIA 17</em></div>
   ${buy('🔓 Liberar meu guia personalizado')}
+  <p class="under"><b>Custa menos que uma pizza.</b> Perder a comida da geladeira custa bem mais.</p>
   <p class="under">Pix ou cartão · acesso imediato · 7 dias de garantia</p>
   <div class="items">
     <div class="item"><span class="e">🗂️</span><div><b>Seu Plano Bunker personalizado</b><span>Quanto de água, comida e luz a <b>sua</b> casa precisa, e a ordem certa dos projetos, começando pela ${c.gNome}.</span></div></div>
@@ -457,7 +479,7 @@ function result(){
         <div><b>Guia + Plano personalizado</b><br><span class="small">15 projetos · hora a hora · listas e checklists</span></div>
         <div class="p"><s data-so-lote>R$ ${CONFIG.precoCheio}</s><b><small style="font-size:.9rem">R$</small> ${preco}</b></div>
       </div>
-      <div style="margin-top:14px">${buy('Quero minha casa pronta')}</div>
+      <div style="margin-top:14px">${buy('Quero o guia por R$ ' + CONFIG.precoCheio)}</div>
       <div class="trust"><div><span>⚡</span>Acesso imediato</div><div><span>🔒</span>Pagamento seguro</div><div><span>✅</span>7 dias de garantia</div></div>
     </div>
   </div>
@@ -469,7 +491,7 @@ function result(){
     <details><summary>Como recebo?</summary><p>Logo depois do pagamento, o acesso chega no seu e-mail. O seu Plano personalizado abre na hora, com os números da sua casa.</p></details>
     <details><summary>Preciso saber mexer com ferramenta?</summary><p>Não. Os projetos são de nível iniciante, com lista de material e passo a passo. Nenhum mexe na fiação da casa.</p></details>
     <details><summary>Moro de aluguel ou em apartamento. Dá para fazer?</summary><p>Dá. Nenhum projeto exige furar parede ou mexer na instalação.</p></details>
-    <details><summary>E se o dia 17 passar e nada acontecer?</summary><p>A casa continua pronta para qualquer queda de luz, temporal ou falta d'água. E você tem 7 dias de garantia.</p></details>
+    <details><summary>${POS17 ? 'E se nunca faltar luz por 3 dias?' : 'E se o dia 17 passar e nada acontecer?'}</summary><p>A casa continua pronta para qualquer queda de luz, temporal ou falta d'água. E você tem 7 dias de garantia.</p></details>
   </div>
   <div style="margin-top:16px">${buy('🔓 Liberar meu guia personalizado')}</div>
   <div class="legal"><a href="termos.html">Termos de Uso</a> · <a href="privacidade.html">Privacidade</a> · Este site não faz parte do Facebook nem da Meta.</div>`;
@@ -484,7 +506,10 @@ function bindResult(){
   document.querySelectorAll('[data-checkout]').forEach(a => {
     if (/^https?:\/\//.test(CONFIG.checkout)) a.href = CONFIG.checkout + (CONFIG.checkout.includes('?') ? '&' : '?') + q.toString();
     else a.addEventListener('click', e => e.preventDefault());
-    a.addEventListener('click', () => { if (window.fbq) window.fbq('track', 'InitiateCheckout'); });
+    a.addEventListener('click', () => {
+      if (window.fbq) window.fbq('track', 'InitiateCheckout');
+      if (A.id && !A.ck) { A.ck = 1; post({evento:'checkout', id:A.id}); }   // marca na planilha quem clicou em comprar
+    });
   });
   lote();
 }
@@ -526,8 +551,10 @@ function plano(){
   </div>`;
 }
 
-/* ---------- prova social: a cada 15 s um aviso; 1 em cada 4 é de compra ---------- */
+/* ---------- prova social: DESLIGADA (ativo:false). Os avisos eram sorteados, não reais.
+   Só religar se os nomes e números vierem de dado verdadeiro. ---------- */
 const PROOF = {
+  ativo: false,
   intervalo: 15000, visivel: 4500, compraACada: 4,
   nomes: ['Ana','Carlos','Juliana','Marcos','Fernanda','Rafael','Patrícia','Lucas','Camila','Roberto','Aline','Diego','Renata','Thiago','Sandra','Bruno','Vanessa','Gustavo','Larissa','Paulo'],
   cidades: ['Goiânia/GO','São Paulo/SP','Belo Horizonte/MG','Curitiba/PR','Salvador/BA','Recife/PE','Fortaleza/CE','Campinas/SP','Porto Alegre/RS','Brasília/DF','Uberlândia/MG','Rio de Janeiro/RJ','Anápolis/GO','Londrina/PR','Natal/RN']
@@ -566,7 +593,7 @@ if (location.hash === '#obrigado') {
   app.innerHTML = plano();
 } else {
   render();
-  proof();
+  if (PROOF.ativo) proof();
 }
 </script>
 </body>
