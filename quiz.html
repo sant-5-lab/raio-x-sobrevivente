@@ -242,11 +242,11 @@ h2{font-size:1.45rem}
 <script>
 /* ================= CONFIGURAÇÃO: só mexa aqui ================= */
 const CONFIG = {
-  checkout: 'COLE_AQUI_O_LINK_DO_CHECKOUT',   // Kiwify/Hotmart
-  prefill: {nome:'name', email:'email', whatsapp:'phone'}, // nomes dos campos de pré-preenchimento do checkout [confirmar na plataforma]
+  checkout: 'https://pay.cakto.com.br/r7nc4f8',   // Cakto · oferta principal Bunker Urbano 72H
+  prefill: {nome:'name', email:'email', whatsapp:'phone'}, // parâmetros aceitos pela Cakto (confirmado na central de ajuda)
   leadEndpoint: '',                            // URL do Apps Script / Make / Zapier que recebe o lead (POST JSON)
-  fimLote: '2026-11-17T23:59:59-03:00',
-  precoLote: '19,90',
+  fimLote: '2026-11-14T00:00:00-03:00',   // lote encerrado: preço cheio R$ 27 desde 14/11
+  precoLote: '27',
   precoCheio: '27',
   produto: 'Guia Bunker Urbano 72H'
 };
