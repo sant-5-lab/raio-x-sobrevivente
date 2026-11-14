@@ -1,0 +1,100 @@
+/* Páginas pós-compra: upsell, downsell, obrigado. Mesma identidade do quiz (oliva + laranja). */
+:root{
+  --bg:#f5f3ec; --card:#fff; --ink:#1d2116; --muted:#5d6455; --line:#e1ddcf;
+  --olive:#3f4a1d; --olive-2:#566828; --olive-soft:#eef0e2;
+  --orange:#f76707; --orange-ink:#1d1206; --orange-soft:#fff0e3; --orange-line:#f7b98c;
+  --r:12px; --stencil:"Saira Stencil One","Archivo",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:17px;line-height:1.5;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+b,strong{font-weight:750}
+a{color:inherit}
+
+.top{background:#fff;border-bottom:1px solid var(--line)}
+.top-in{max-width:560px;margin:0 auto;height:52px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:.78rem;font-weight:700;letter-spacing:.16em;color:var(--muted)}
+.top-in b{color:var(--olive);font-weight:800}
+.mark{width:16px;height:12px;border-radius:2px;background:linear-gradient(90deg,var(--olive) 0 60%,var(--orange) 60%)}
+
+.ok{background:var(--olive);color:#fff;text-align:center;font-size:.84rem;font-weight:700;padding:9px 14px}
+.ok b{color:#ffb27a}
+
+.wrap{max-width:520px;margin:0 auto;padding:22px 16px 56px}
+.badge{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--olive);background:var(--olive-soft);padding:6px 11px;border-radius:999px;margin-bottom:12px}
+.badge.or{color:#8a3500;background:var(--orange-soft)}
+h1,h2,h3{font-weight:850;line-height:1.12;letter-spacing:-.01em;margin:0 0 10px;text-wrap:balance}
+h1{font-size:1.85rem}
+h2{font-size:1.35rem;margin-top:30px}
+h3{font-size:1.05rem}
+.ho{color:var(--orange)}
+.hl{color:var(--olive)}
+.sub{color:var(--muted);margin:0 0 18px;font-size:1.05rem}
+.center{text-align:center}
+.small{font-size:.82rem;color:var(--muted)}
+
+/* capa em CSS */
+.cover{display:flex;justify-content:center;margin:22px 0 8px}
+.book{width:150px;aspect-ratio:3/4;border-radius:3px 8px 8px 3px;background:linear-gradient(160deg,#556427,#232a0e);color:#fff;padding:14px 12px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:10px 14px 28px rgba(0,0,0,.35);transform:rotate(-4deg);position:relative}
+.book::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:rgba(0,0,0,.25);border-radius:3px 0 0 3px}
+.book small{font-size:.58rem;letter-spacing:.2em;font-weight:700;color:#ffb27a;margin-bottom:6px}
+.book b{font-family:var(--stencil);font-size:1.5rem;line-height:1;font-weight:400}
+.book em{font-style:normal;font-size:.62rem;margin-top:8px;opacity:.8}
+.book.laranja{background:linear-gradient(160deg,#f76707,#8a3500)}
+.book.laranja small{color:#ffe3cc}
+
+/* blocos */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.days{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.days div{border-radius:10px;padding:12px;font-size:.88rem;line-height:1.3;background:var(--olive-soft)}
+.days div.x{background:var(--orange-soft)}
+.days b{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--olive);margin-bottom:4px}
+.days .x b{color:#8a3500}
+
+.areas{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:10px}
+.areas li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px 12px 50px;position:relative}
+.areas li i{position:absolute;left:12px;top:12px;width:28px;height:28px;border-radius:8px;background:var(--olive);color:#fff;font-style:normal;font-weight:800;font-size:.85rem;display:grid;place-items:center}
+.areas li b{display:block}
+.areas li span{font-size:.9rem;color:var(--muted)}
+
+.proj{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 0;padding:0;list-style:none}
+.proj li{background:var(--orange-soft);border:1px solid var(--orange-line);border-radius:10px;padding:9px 11px;font-size:.86rem;line-height:1.25;font-weight:650}
+.proj li i{display:block;font-style:normal;font-size:.68rem;letter-spacing:.1em;color:#8a3500;font-weight:800}
+
+.checks{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:9px}
+.checks li{padding-left:28px;position:relative}
+.checks li::before{content:"✓";position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;background:var(--olive);color:#fff;font-size:.72rem;font-weight:800;display:grid;place-items:center;margin-top:2px}
+
+/* oferta */
+.offer{margin-top:30px;background:#fff;border:2px solid var(--orange);border-radius:16px;padding:20px 16px;text-align:center;box-shadow:0 10px 30px rgba(247,103,7,.14)}
+.offer .tag{font-size:.74rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8a3500}
+.price{font-size:3rem;font-weight:900;line-height:1;margin:8px 0 2px;letter-spacing:-.02em}
+.price small{font-size:1.2rem;font-weight:800;vertical-align:.9em;margin-right:3px}
+.pay{font-size:.82rem;color:var(--muted);margin:0 0 16px}
+.btns{display:grid;gap:12px;margin-top:6px}
+cakto-upsell-buttons{display:grid;gap:12px;width:100%}
+cakto-upsell-accept,cakto-upsell-reject{display:block;width:100%}
+cakto-upsell-accept::part(button){width:100%;background:var(--orange);color:var(--orange-ink);border:0;border-radius:12px;padding:17px 14px;font-family:inherit;font-weight:850;font-size:1.05rem;cursor:pointer;box-shadow:0 5px 0 #b34800}
+cakto-upsell-reject::part(button){width:100%;background:transparent;color:var(--muted);border:0;padding:10px;font-family:inherit;font-weight:600;font-size:.88rem;text-decoration:underline;cursor:pointer}
+.warn{font-size:.78rem;color:var(--muted);margin-top:10px}
+
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:8px}
+summary{cursor:pointer;font-weight:750}
+details p{margin:8px 0 0;color:var(--muted);font-size:.95rem}
+
+/* obrigado */
+.steps{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:12px;counter-reset:s}
+.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 16px 16px 58px;position:relative}
+.steps li::before{content:counter(s);position:absolute;left:14px;top:14px;width:32px;height:32px;border-radius:50%;background:var(--orange);color:var(--orange-ink);font-weight:900;display:grid;place-items:center}
+.steps li p{margin:4px 0 0;color:var(--muted);font-size:.95rem}
+.btn{display:block;width:100%;text-align:center;text-decoration:none;background:var(--orange);color:var(--orange-ink);font-weight:850;font-size:1.05rem;padding:16px 14px;border-radius:12px;box-shadow:0 5px 0 #b34800;margin-top:12px}
+.btn.sec{background:#fff;box-shadow:none;border:2px solid var(--olive);color:var(--olive)}
+.orders{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+.orders li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 14px;font-size:.92rem}
+.orders li b{display:block}
+.orders li span{color:var(--muted)}
+.orders li.base{border-color:var(--olive);background:var(--olive-soft)}
+
+footer{max-width:520px;margin:0 auto;padding:0 16px 40px;font-size:.74rem;color:var(--muted);line-height:1.45}
+footer a{color:var(--muted)}
+@media (max-width:380px){h1{font-size:1.6rem}.days,.proj{grid-template-columns:1fr}}

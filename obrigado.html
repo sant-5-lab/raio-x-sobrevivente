@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Compra confirmada · Bunker Urbano 72H</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#3f4a1d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Saira+Stencil+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="funil.css">
+</head>
+<body>
+
+<div class="top"><div class="top-in"><span class="mark"></span> BUNKER <b>URBANO</b></div></div>
+
+<main class="wrap">
+  <span class="badge">Compra confirmada</span>
+  <h1 id="titulo">Obrigado. <span class="hl">Sua casa começa a ficar preparada agora.</span></h1>
+  <p class="sub">Faltam 3 passos rápidos para você começar. O primeiro é no seu e-mail.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Abra o e-mail de acesso</h3>
+      <p>Chegou (ou chega em instantes) uma mensagem da Cakto com o link de cada produto do seu pedido. Não achou? Olhe em <b>Spam</b> e <b>Promoções</b>. O acesso é por uma área de membros, e os PDFs ficam lá para sempre.</p>
+    </li>
+    <li>
+      <h3>Gere o seu Plano Bunker</h3>
+      <p>É o plano feito com as respostas do seu Raio-X: litros de água, refeições e lanternas da sua casa e a ordem dos projetos, começando pelo seu ponto mais fraco. Dá para imprimir ou salvar em PDF.</p>
+      <a class="btn" id="plano" href="quiz.html#obrigado">Ver o meu Plano Bunker</a>
+    </li>
+    <li>
+      <h3>Comece pelo primeiro projeto</h3>
+      <p>Abra o Guia Bunker Urbano 72H, vá ao primeiro projeto da lista do seu Plano e faça hoje. Um projeto por dia já deixa a casa bem mais preparada em duas semanas.</p>
+    </li>
+  </ol>
+
+  <h2>O que pode estar no seu pedido</h2>
+  <p class="sub" style="margin-bottom:0">Cada produto tem a sua própria área de membros e o seu próprio e-mail de acesso.</p>
+  <ul class="orders">
+    <li class="base"><b>Guia Bunker Urbano 72H</b><span>Sempre incluso. Protocolo hora a hora, 15 projetos, lista de compras e checklists.</span></li>
+    <li><b>Arsenal do Sobrevivente</b><span>Se você adicionou na compra. Equipamentos certos por faixa de preço.</span></li>
+    <li><b>Despensa Bunker</b><span>Se você adicionou na compra. Cardápio e lista de mercado de 3 dias sem geladeira.</span></li>
+    <li><b>Bunker 7 Dias</b><span>Se você aceitou a oferta. Manual para uma semana, com mais 8 projetos.</span></li>
+    <li><b>Energia 7 Dias</b><span>Se você aceitou a oferta. Celular, luz e internet por 7 dias.</span></li>
+  </ul>
+
+  <h2>Ajuda e garantia</h2>
+  <ul class="checks">
+    <li>Garantia de 7 dias, contados da compra. Se não gostar, peça o reembolso.</li>
+    <li>Dúvida sobre acesso ou pagamento: responda ao próprio e-mail da Cakto que chegou na sua compra.</li>
+    <li>Guarde este endereço. Você pode voltar aqui quando quiser.</li>
+  </ul>
+</main>
+
+<footer>
+  <p>Conteúdo informativo e educativo. Não substitui as orientações da Defesa Civil, do Corpo de Bombeiros, da sua distribuidora de energia ou de profissionais de saúde. Alguns produtos indicados nos materiais podem ter links de afiliado.</p>
+  <p><a href="termos.html">Termos</a> · <a href="privacidade.html">Privacidade</a></p>
+</footer>
+
+<script>
+/* Se a pessoa fez o quiz neste aparelho, cumprimenta pelo nome (dado fica só no navegador). */
+try {
+  const a = JSON.parse(localStorage.getItem('raiox-sobrevivente') || '{}');
+  if (a.nome) {
+    const n = String(a.nome).trim().split(/\s+/)[0].replace(/[<>&"']/g, '');
+    if (n) document.getElementById('titulo').firstChild.textContent = 'Obrigado, ' + n + '. ';
+  }
+} catch (e) {}
+</script>
+</body>
+</html>
