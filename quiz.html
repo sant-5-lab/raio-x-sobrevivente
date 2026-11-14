@@ -390,6 +390,7 @@ $('#f2').addEventListener('submit', e => {
   next();
 });
 function sendLead(){
+  if (typeof PREVIEW !== 'undefined' && PREVIEW) return; // prévia do hub não envia lead
   const c = calc(), q = new URLSearchParams(location.search);
   const payload = {data:new Date().toISOString(), nome:A.nome, whatsapp:A.whatsapp, email:A.email, moradia:A.moradia, pessoas:A.pessoas,
     crenca:A.crenca, medo:A.medo, horas:c.horas, gargalo:c.g, risco:c.risco, respostas:A,
@@ -560,7 +561,32 @@ app.addEventListener('click', e => {
 });
 $('#back').addEventListener('click', () => { if (hist.length) { i = hist.pop(); render(); } });
 
-if (location.hash === '#obrigado') {
+/* ---------- modo prévia (hub.html): ?tela=ID&perfil=alto|medio|baixo&crenca=...&lote=encerrado ---------- */
+const QP = new URLSearchParams(location.search), TELA = QP.get('tela');
+const PREVIEW = !!TELA;
+function previa(){
+  const base = {nome:'Ana', whatsapp:'11999999999', email:'', crenca:'acredito', medo:'comida'};
+  const perfis = {
+    alto:  {moradia:'apto', pessoas:'4', agua:'0',  lanterna:'nao', comida:'nao', powerbank:'nao', plano:'nao'},
+    medio: {moradia:'casa', pessoas:'2', agua:'5',  lanterna:'sim', comida:'sim', powerbank:'sim', plano:'nao'},
+    baixo: {moradia:'casa', pessoas:'1', agua:'25', lanterna:'sim', comida:'sim', powerbank:'sim', plano:'sim'}
+  };
+  Object.assign(A, base, perfis[QP.get('perfil')] || perfis.alto);
+  for (const k in A) if (QP.has(k)) A[k] = QP.get(k);
+  if (QP.get('lote') === 'encerrado') CONFIG.fimLote = '2000-01-01T00:00:00-03:00';
+  $('#m2n').textContent = A.nome;
+  if (TELA === 'obrigado') { $('#alert').hidden = true; $('#bar').style.width = '100%'; app.innerHTML = plano(); return; }
+  const id = TELA === 'entrada' ? 'moradia' : (TELA === 'm1' || TELA === 'm2') ? 'resultado' : TELA;
+  const k = STEPS.findIndex(x => x.id === id);
+  i = k < 0 ? 0 : k;
+  for (let j = 0; j < i; j++) hist.push(j);
+  render();
+  if (TELA === 'm1' || TELA === 'm2') openModal('#' + TELA);
+}
+
+if (PREVIEW) {
+  previa();
+} else if (location.hash === '#obrigado') {
   try { Object.assign(A, JSON.parse(localStorage.getItem('raiox-sobrevivente') || '{}')); } catch (e) {}
   $('#alert').hidden = true; $('#bar').style.width = '100%';
   app.innerHTML = plano();
